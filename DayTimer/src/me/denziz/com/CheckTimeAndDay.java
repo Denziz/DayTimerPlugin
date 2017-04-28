@@ -17,6 +17,7 @@ public class CheckTimeAndDay extends BukkitRunnable {
 
 	@Override
 	public void run() {
+		checkNumbers();
 		getDayInConfigurationFile();
 
 		Calendar myDate = Calendar.getInstance();
@@ -28,8 +29,26 @@ public class CheckTimeAndDay extends BukkitRunnable {
 
 					CommandSender cmd = Bukkit.getConsoleSender();
 					plugin.getServer().dispatchCommand(cmd, plugin.getConfig().getString("Command"));
-					System.out.println("[" + plugin.getName() + "] executed command: " + plugin.getConfig().getString("Command"));
+					Bukkit.getConsoleSender().sendMessage(
+							"[" + plugin.getName() + "] executed command: " + plugin.getConfig().getString("Command"));
 				}
+			}
+		}
+	}
+
+	public void checkNumbers() {
+		
+		for (int i = 0; i <= plugin.getConfig().getInt("Hour"); i++) {
+			if (i >= 25) {
+				Bukkit.getConsoleSender().sendMessage("[" + plugin.getName() + "] HOUR: You need to enter a number between 0-24");
+				break;
+			}
+		}
+		
+		for (int i = 0; i <= plugin.getConfig().getInt("Minute"); i++) {
+			if (i >= 61) {
+				Bukkit.getConsoleSender().sendMessage("[" + plugin.getName() + "] MINUTE: You need to enter a number between 0-60");
+				break;
 			}
 		}
 	}
@@ -61,6 +80,7 @@ public class CheckTimeAndDay extends BukkitRunnable {
 			break;
 		default:
 			Bukkit.getConsoleSender().sendMessage("You must provide a day in the config file.");
+			Bukkit.getConsoleSender().sendMessage("[" + plugin.getName() + "] DAY: " + plugin.getConfig().getString("Day") + " does NOT exist.");
 			break;
 		}
 	}
