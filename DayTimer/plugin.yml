@@ -1,0 +1,7 @@
+name: DayTimer
+main: me.denziz.com.Main
+author: Denziz
+description: Executes a command at a specific day and time.
+version: 1.0
+commands:
+  reloaddaytimer:
